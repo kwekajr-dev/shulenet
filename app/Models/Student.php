@@ -39,4 +39,14 @@ class Student extends Model
     {
         return $this->hasMany(ClassAssignment::class);
     }
+
+    public function classes()
+{
+    return $this->hasMany(ClassAssignment::class);
+}
+
+public function currentClass()
+{
+    return $this->hasOne(ClassAssignment::class)->latest();
+}
 }

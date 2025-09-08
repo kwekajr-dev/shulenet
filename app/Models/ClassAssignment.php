@@ -5,22 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Result extends Model
+class ClassAssignment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'student_id', 
-        'class_id',
-        'subject_id',
-        'term', 
-        'score', 
-        'grade', 
-        'teacher_comment'
-    ];
-
-    protected $casts = [
-        'score' => 'decimal:2'
+        'student_id',
+        'class_id', 
+        'academic_year',
+        'assignment_date'
     ];
 
     public function student()
@@ -31,10 +24,5 @@ class Result extends Model
     public function schoolClass()
     {
         return $this->belongsTo(SchoolClass::class, 'class_id');
-    }
-
-    public function subject()
-    {
-        return $this->belongsTo(ClassSubject::class, 'subject_id');
     }
 }

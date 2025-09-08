@@ -103,7 +103,20 @@ class User extends Authenticatable
 
         return in_array($activityType, $this->teacherRole->permissions);
     }
+    
 
+    public function classAssignments()
+{
+    return $this->hasMany(StudentClassAssignment::class, 'student_id');
+}
+
+public function classes()
+{
+    return $this->belongsToMany(SchoolClass::class, 'student_class_assignments', 'student_id', 'class_id')
+                ->withPivot('academic_year', 'status')
+                ->wherePivot('status', 'active')
+                ->withTimestamps();
+}
     /**
      * Get the user's notifications.
      */

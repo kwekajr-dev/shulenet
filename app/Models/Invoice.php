@@ -14,8 +14,9 @@ class Invoice extends Model
         'title',
         'amount',
         'due_date',
-        'status',
+        'status', 
         'paid_at',
+        'description', 
     ];
 
     protected $casts = [
@@ -45,7 +46,7 @@ class Invoice extends Model
      */
     public function getIsOverdueAttribute()
     {
-        return $this->status !== 'paid' && $this->due_date->isPast();
+        return $this->status === 'pending' && $this->due_date->isPast();
     }
 
     /**
@@ -62,5 +63,30 @@ class Invoice extends Model
     public function getRemainingAmountAttribute()
     {
         return $this->amount - $this->total_paid;
+    }
+
+    /**
+     * Scope a query to only include pending invoices.
+     */
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
+    /**
+     * Scope a query to only include paid invoices.
+     */
+    public function scopePaid($query)
+    {
+        return $query->where('status', 'paid');
+    }
+
+    /**
+     * Scope a query to only include overdue invoices.
+     */
+    public function scopeOverdue($query)
+    {
+        return $query->where('status', 'pending')
+                    ->where('due_date', '<', now());
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
         $table->string('title');
         $table->decimal('amount', 10, 2);
         $table->date('due_date');
-        $table->enum('status', ['pending', 'paid', 'overdue'])->default('pending');
+        $table->enum('status', ['pending', 'paid'])->default('pending');
         $table->timestamps();
     });
 }

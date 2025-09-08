@@ -12,10 +12,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
             $table->decimal('amount', 10, 2);
-            $table->string('method'); // card, bank_transfer, paypal, etc.
+            $table->string('method'); 
             $table->string('transaction_id')->nullable();
             $table->timestamp('paid_at');
-            $table->string('status'); // pending, completed, failed
+            $table->string('status'); 
             $table->text('notes')->nullable();
             $table->timestamps();
             
